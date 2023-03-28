@@ -1,0 +1,26 @@
+package:
+  id: double-conversion
+  kind: lib
+  version: 3.1.0.2
+
+base:
+  id: org.deepin.base
+  version: 20.5.0
+
+variables:
+  extra_args: |
+    -DBUILD_SHARED_LIBS=ON
+
+source:
+  kind: git
+  url: https://github.com/deepin-community/double-conversion.git
+  version: master
+  commit: 67df9e082634877417e938d062a713860f345eee
+  patch:
+  - fix_m68k.patch
+build:
+  kind: cmake
+  manual:
+    install: |
+      cmake --build ${build_dir} --target install
+      cd ${PREFIX}/lib && ln -s libdouble-conversion.so.3.0.0 libdouble-conversion.so.1
